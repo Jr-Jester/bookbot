@@ -1,8 +1,16 @@
+import sys
 from stats import get_num_words, get_num_char, get_sorted_dict
 
 def get_book_text(filepath):
     with open(filepath) as f:
         return f.read()
+
+def get_file_path(args):
+    filepath = args
+    if len(filepath) < 2:
+        print('Usage: python3 main.py <path_to_book>')
+        sys.exit(1)
+    return filepath[1]
 
 def pretty_output(sorted_dic, filepath):
     print(f'''
@@ -17,7 +25,7 @@ Analyzing book found at {filepath}...
     print('============= END ===============')
 
 def main():
-    filepath = 'books/frankenstein.txt'
+    filepath = get_file_path(sys.argv)
     sorted_dic = (get_sorted_dict(get_num_char(get_book_text(filepath))))
     pretty_output(sorted_dic, filepath)
 
